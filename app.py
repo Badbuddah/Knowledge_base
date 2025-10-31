@@ -6,8 +6,9 @@ import numpy as np
 
 app = Flask(__name__)
 
-UPLOAD_FOLDER = os.environ.get("UPLOAD_FOLDER", "/data/uploads")
-DB_PATH = os.path.join(os.environ.get("UPLOAD_FOLDER", "/data"), "knowledge_base.db")
+# Percorsi locali compatibili con Windows/Linux/macOS
+UPLOAD_FOLDER = os.path.join("data", "uploads")
+DB_PATH = os.path.join("data", "knowledge_base.db")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
