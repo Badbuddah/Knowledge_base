@@ -1,10 +1,10 @@
 from flask import Flask, request, render_template_string
 import sqlite3
+import os
 
 app = Flask(__name__)
 DB_PATH = "knowledge_base.db"
 
-# --- Creazione tabella se non esiste ---
 def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -74,8 +74,7 @@ def add_doc():
     contenuto = request.form["contenuto"]
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
-    c.execute("INSERT INTO documenti (titolo, domanda_chiave, contenuto) VALUES (?, ?, ?)",
-              (titolo, domanda, contenuto))
+    c.execute("INSERT INTO documenti (titolo, domanda_chiave, contenuto) VALUES (?, ?, ?)", (titolo, domanda, contenuto))
     conn.commit()
     conn.close()
     return render_template_string(HTML_TEMPLATE, result={"titolo": "Documento aggiunto", "contenuto": "✅ Inserito con successo!"})
@@ -95,4 +94,5 @@ def search():
         return render_template_string(HTML_TEMPLATE, no_result=True)
 
 if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000, debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port, debug=False)
