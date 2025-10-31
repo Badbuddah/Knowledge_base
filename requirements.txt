@@ -1,2 +1,6 @@
 Flask
+PyPDF2
+openai
+numpy
 sqlite-utils
+tiktoken

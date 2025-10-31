@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: knowledge-base-ai
+    env: python
+    plan: free
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: OPENAI_API_KEY
+        value: "inserisci_la_tua_api_key"
+      - key: UPLOAD_FOLDER
+        value: "/data/uploads"
+    disks:
+      - name: knowledge_disk
+        mountPath: /data
